@@ -1,7 +1,7 @@
 {
   "name": "pavie",
   "version": "1.0.0",
-  "description": "Node.js restfull API for Plex Server",
+  "description": "Node.js restful API for Plex Server",
   "main": "pavie.js",
   "author": "BATTISTELLA Damien <battistella@protonmail.com>",
   "license": "MIT",

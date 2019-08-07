@@ -1,6 +1,6 @@
 # pavie
 
-Node.js restfull API for Plex Media Server.
+Node.js restful API for Plex Media Server.
 
 Tested on Plex Media Server v1.16.3.
 
