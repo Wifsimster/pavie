@@ -1,6 +1,6 @@
 const Pavie = require("./pavie")
 
-const pavie = new Pavie({ username: "wifsimster", password: "192Lucie!!" })
+const pavie = new Pavie({ username: "USERNAME", password: "PASWORD" })
 
 pavie
   .signin()
