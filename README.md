@@ -13,7 +13,7 @@ $ npm install pavie
 ## Usage
 
 ```js
-const Pavie = require("./pavie")
+const Pavie = require("pavie")
 
 const pavie = new Pavie({ username: "USERNAME", password: "PASSWORD" })
 
