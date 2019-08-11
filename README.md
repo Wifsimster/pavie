@@ -240,3 +240,7 @@ Return an image.
   - `height` `<number>`, default: `96`
   - `minSize` `<number>`, default: `1`
   - `upscale` `<number>`, default: `1`
+  - `opacity` `<number>`, ie: `30`
+  - `background` `<hexadecimal>`, ie: `36383b`
+  - `format` `<string>`, ie: `png`
+  - `blur` `<number>`, ie: `56`

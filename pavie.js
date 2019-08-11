@@ -369,12 +369,21 @@ module.exports = class {
    * url: /library/metadata/25963/thumb/1557058611?X-Plex-Token=fPHNF2Wkg84qDPprCbqy
    */
   async getImage(url, options = {}) {
-    options = Object.assign({ width: 170, height: 96, minSize: 1, upscale: 1, url: url }, options)
+    options = Object.assign(
+      {
+        width: 170,
+        height: 96,
+        minSize: 1,
+        upscale: 1,
+        url: url
+      },
+      options
+    )
 
     const response = await this.instance.get(`/photo/:/transcode?${querystring.stringify(options)}`)
 
     if (response.status < 400) {
-      return response.data.MediaContainer
+      return response.data
     }
   }
 }
