@@ -7,7 +7,7 @@ const pavie = new Pavie(settings)
 pavie
   .signin()
   .then(async () => {
-    const response = await pavie.getLibraries()
+    const response = await pavie.getActions()
     console.log(response)
   })
   .catch(err => {

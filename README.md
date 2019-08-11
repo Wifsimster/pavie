@@ -16,11 +16,13 @@ Tested on Plex Media Server v1.16.3.
 
 [Synchronize](https://github.com/Wifsimster/pavie#synchronize)
 
-[Hubs](https://github.com/Wifsimster/pavie#hubs)
-
 [Playlists](https://github.com/Wifsimster/pavie#playlists)
 
 [History](https://github.com/Wifsimster/pavie#history)
+
+[Metadata](https://github.com/Wifsimster/pavie#metadata)
+
+[Images](https://github.com/Wifsimster/pavie#images)
 
 ## Install
 
@@ -131,12 +133,6 @@ Get synchronize info.
 
 Synchronize Plex and Trakt.tv.
 
-### Hubs
-
-#### getHubs([action = 'continueWatching'])
-
-Hubs actions [continueWatching, onDeck].
-
 ### Playlists
 
 #### getPlaylists()
@@ -194,5 +190,52 @@ Remove existing playlist.
 Get the history of a TV Shows.
 
 - `options` `<object>`
+
   - `metadataItemID` `<number>` Identifiant
   - `sort` `<string>` Order by, default : `viewed:desc`
+
+  ### Metadata
+
+  ### getMetadata([id])
+
+  Return all info about a media.
+
+  - `id` `<number>` Identifiant
+
+  ### getMetadataChildren([id], [options])
+
+  Return all children metadata for a specified media.
+  ie: Returnn seasons metadata for a specified Tv Show.
+
+  - `id` `<number>` Identifiant
+  - `options` `<object>`
+    - `excludeAllLeaves` `<number>`, default: `1`
+
+  ### getRelated([id], [options])
+
+  Return a list of related media.
+
+  - `id` `<number>` Identifiant
+  - `options` `<object>`
+    - `excludeFields` `<string>`, default: `summary`
+    - `includeExternalMetadata` `<number>`, default: `1`
+    - `asyncAugmentMetadata` `<number>`, default: `1`
+
+  ### getSimilar([id])
+
+  Return a list of similar media.
+
+  - `id` `<number>` Identifiant
+
+### Images
+
+#### getImage([url], [options])
+
+Return an image.
+
+- `url` `<string>` Path to the image
+- `options` `<object>`
+  - `width` `<number>`, default: `170`
+  - `height` `<number>`, default: `96`
+  - `minSize` `<number>`, default: `1`
+  - `upscale` `<number>`, default: `1`

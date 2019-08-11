@@ -194,17 +194,6 @@ module.exports = class {
   }
 
   /**
-   * Get metdata of a media
-   */
-  async getMedatadata(id) {
-    const response = await this.instance.get(`/library/metadata/${id}`)
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
    * Get a list of servers
    * Return: [name, host, address, port, machineIdentifier, version]
    */
@@ -232,18 +221,6 @@ module.exports = class {
    */
   async synchronize(accoundId = "1&amp;t=1565171925.59") {
     const response = await this.instance.get(`/video/trakt/sync/synchronize?account_id=${accoundId}`)
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
-   * Hubs actions
-   * [continueWatchig, onDeck]
-   */
-  async getHubs(action = "continueWatching") {
-    const response = await this.instance.get(`/hubs/home/${action}`)
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -340,6 +317,61 @@ module.exports = class {
   async getHistory(filters = {}) {
     filters = Object.assign({ sort: "viewedAt:desc" }, filters)
     const response = await this.instance.get(`/status/sessions/history/all?${querystring.stringify(filters)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Get metadata of a media
+   */
+  async getMedatadata(id) {
+    const response = await this.instance.get(`/library/metadata/${id}?includePreferences=1`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Get children metadata of a media
+   * ie: Seasons metadata for a specified Tv Show
+   */
+  async getMedatadataChildren(id, options = {}) {
+    options = Object.assign({ excludeAllLeaves: 1 }, options)
+    const response = await this.instance.get(`/library/metadata/${id}/children?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  async getRelated(id, options = {}) {
+    options = Object.assign({ excludeFields: "summary", includeExternalMetadata: 1, asyncAugmentMetadata: 1 }, options)
+    const response = await this.instance.get(`/hubs/metadata/${id}/related?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  async getSimilar(id) {
+    const response = await this.instance.get(`/hubs/metadata/${id}/similar`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Return an image
+   * url: /library/metadata/25963/thumb/1557058611?X-Plex-Token=fPHNF2Wkg84qDPprCbqy
+   */
+  async getImage(url, options = {}) {
+    options = Object.assign({ width: 170, height: 96, minSize: 1, upscale: 1, url: url }, options)
+
+    const response = await this.instance.get(`/photo/:/transcode?${querystring.stringify(options)}`)
 
     if (response.status < 400) {
       return response.data.MediaContainer
