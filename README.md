@@ -8,6 +8,14 @@ Tested on Plex Media Server v1.16.3.
 [![npm version](https://badge.fury.io/js/pavie.svg)](https://badge.fury.io/js/pavie)
 [![Install size](https://packagephobia.now.sh/badge?p=pavie)](https://packagephobia.now.sh/result?p=pavie)
 
+## Summary
+
+[Libraries](https://github.com/Wifsimster/pavie#libraries)
+[Directories](https://github.com/Wifsimster/pavie#directories)
+[Synchronize](https://github.com/Wifsimster/pavie#synchronize)
+[Hubs](https://github.com/Wifsimster/pavie#hubs)
+[Playlist](https://github.com/Wifsimster/pavie#playlists)
+
 ## Install
 
 ```
