@@ -1,6 +1,8 @@
-const Pavie = require("./pavie")
+const settings = require("../settings.json")
 
-const pavie = new Pavie({ username: "USERNAME", password: "PASWORD" })
+const Pavie = require("../pavie")
+
+const pavie = new Pavie(settings)
 
 pavie
   .signin()

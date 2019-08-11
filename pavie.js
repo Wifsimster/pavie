@@ -249,4 +249,88 @@ module.exports = class {
       return response.data.MediaContainer
     }
   }
+
+  /**
+   * Get all playlists
+   */
+  async getPlaylists() {
+    const response = await this.instance.get(`/playlists`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Get playlist basic info
+   */
+  async getPlaylist(ratingKey) {
+    const response = await this.instance.get(`/playlists/${ratingKey}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Get playlist video files
+   */
+  async getPlaylistFiles(ratingKey) {
+    const response = await this.instance.get(`/playlists/${ratingKey}/items`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Add playlist
+   */
+  async addPlaylist(data) {
+    data = Object.assign(
+      {
+        smart: 0,
+        type: "video"
+      },
+      data
+    )
+    const response = await this.instance.post(`/playlists?${querystring.stringify(data)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  /**
+   * Update playlist
+   */
+  async updatePlaylist(ratingKey, data) {
+    const response = await this.instance.put(`/playlists/${ratingKey}?${querystring.stringify(data)}`)
+
+    if (response.status < 400) {
+      return response.data
+    }
+  }
+
+  /**
+   * Update playlist files
+   */
+  async updatePlaylistFiles(ratingKey, uri) {
+    const response = await this.instance.put(`/playlists/${ratingKey}/items?uri=${uri}`)
+
+    if (response.status < 400) {
+      return response.data
+    }
+  }
+
+  /**
+   * Remove playlist
+   */
+  async removePlaylist(ratingKey) {
+    const response = await this.instance.delete(`/playlists/${ratingKey}`)
+
+    if (response.status < 400) {
+      return response.data
+    }
+  }
 }
