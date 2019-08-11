@@ -121,6 +121,32 @@ Global search of media.
   - `sectionId` `<number>`
   - `limit` `<number>`, ie: `30`
 
+### Tv Shows
+
+#### getTvShows([options])
+
+Return tv shows.
+
+- `options` `<object>`
+  - `unwatchedLeaves` `<number>`, default: `0`
+  - `sort` `<string>`, ie: `rating:desc`
+
+#### getSeasons([options])
+
+Return tv shows seasons.
+
+- `options` `<object>`
+  - `includeCollections` `<number>`, default: `1`
+  - `sort` `<string>`, ie: `rating:desc`
+
+#### getEpisodes([options])
+
+Return tv shows episodes.
+
+- `options` `<object>`
+  - `includeCollections` `<number>`, default: `1`
+  - `sort` `<string>`, ie: `rating:desc`
+
 ### Synchronize
 
 #### getSynchronize()

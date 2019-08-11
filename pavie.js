@@ -333,4 +333,31 @@ module.exports = class {
       return response.data.MediaContainer
     }
   }
+
+  async getTvShows(options = {}) {
+    options = Object.assign({ type: 2, unwatchedLeaves: 0, sort: null }, options)
+    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  async getSeasons(options = {}) {
+    options = Object.assign({ type: 3, includeCollections: 1, sort: null }, options)
+    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
+
+  async getEpisodes(options = {}) {
+    options = Object.assign({ type: 4, includeCollections: 1, sort: null }, options)
+    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
 }

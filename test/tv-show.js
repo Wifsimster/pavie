@@ -7,7 +7,7 @@ const pavie = new Pavie(settings)
 pavie
   .signin()
   .then(async () => {
-    const response = await pavie.search(`Big Bang`, {})
+    const response = await pavie.getTvShows({})
     console.log(response)
   })
   .catch(err => {
