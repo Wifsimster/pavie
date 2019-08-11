@@ -118,71 +118,6 @@ module.exports = class {
   }
 
   /**
-   * Get a list of libraries
-   * Return: [section, recentlyAdded, onDeck]
-   */
-  async getLibraries() {
-    const response = await this.instance.get("/library")
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
-   * Get a list of sections in the library
-   * Return: [Movies, Music, TV Shows]
-   */
-  async getLibrary(library = "sections") {
-    const response = await this.instance.get(`/library/${library}`)
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
-   * Get list of directory in a specified section
-   * Default : TV Shows section
-   * Return : [all, unwatched, newest, recentlyAdded, recenntlyViewed, recentlyViewedShows, onDeck, folder, ...]   *
-   */
-  async getDirectoriesFromSection(library = "sections", sectionId = 2) {
-    const response = await this.instance.get(`/library/${library}/${sectionId}`)
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
-   * Get a list of TV Shows by directory
-   * Default : TV Shows and all
-   * Return : [studio, type, title, contentRating, summary, index, rating, year, thumb, art, duration, originallyAvailableAt, ...]
-   */
-  async getDirectory(library = "sections", sectionId = 2, directory = "all") {
-    const response = await this.instance.get(`/library/${library}/${sectionId}/${directory}`)
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
-   * Search Tv Shows, episodes, movies or musics
-   * Default : [sectionId : Tv Shows, type: Tv Shows]
-   * For Tv Shows, type: [2: Tv Shows, 3: Seasonn, 4 : Episode]
-   */
-  async search(library = "sections", sectionId = 2, filters = { type: 2 }) {
-    const response = await this.instance.get(
-      `/library/${library}/${sectionId}/search?${querystring.stringify(filters)}`
-    )
-
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    }
-  }
-
-  /**
    * Refresh a section
    */
   async refresh(library = "sections", sectionId = 2) {
@@ -384,6 +319,18 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data
+    }
+  }
+
+  /**
+   * Global search
+   */
+  async search(query, options = {}) {
+    options = Object.assign({ includeCollections: 1, sectionId: null, limit: null, query: query }, options)
+    const response = await this.instance.get(`/hubs/search?${querystring.stringify(options)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
     }
   }
 }
