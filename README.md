@@ -20,6 +20,8 @@ Tested on Plex Media Server v1.16.3.
 
 [Playlists](https://github.com/Wifsimster/pavie#playlists)
 
+[History](https://github.com/Wifsimster/pavie#history)
+
 ## Install
 
 ```
