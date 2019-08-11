@@ -18,7 +18,7 @@ Tested on Plex Media Server v1.16.3.
 
 [Hubs](https://github.com/Wifsimster/pavie#hubs)
 
-[Playlist](https://github.com/Wifsimster/pavie#playlists)
+[Playlists](https://github.com/Wifsimster/pavie#playlists)
 
 ## Install
 
