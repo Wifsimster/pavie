@@ -6,6 +6,7 @@ Tested on Plex Media Server v1.16.3.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Wifsimster/pavie/blob/master/LICENSE)
 [![npm version](https://badge.fury.io/js/pavie.svg)](https://badge.fury.io/js/pavie)
+<img src="https://img.shields.io/github/languages/code-size/Wifsimster/pavie">
 [![Install size](https://packagephobia.now.sh/badge?p=pavie)](https://packagephobia.now.sh/result?p=pavie)
 
 ## Summary
