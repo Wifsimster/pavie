@@ -91,7 +91,7 @@ Return all info about a media.
 ### getMetadataChildren([id], [options])
 
 Return all children metadata for a specified media.
-ie: Returnn seasons metadata for a specified Tv Show.
+ie: Return seasons metadata for a specified Tv Show.
 
 - `id` `<number>` Identifiant
 - `options` `<object>`
