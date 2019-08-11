@@ -13,6 +13,8 @@ Tested on Plex Media Server v1.16.3.
 
 [Metadata](https://github.com/Wifsimster/pavie#metadata)
 
+[Tv Shows](https://github.com/Wifsimster/pavie#tv-shows)
+
 [Synchronize](https://github.com/Wifsimster/pavie#synchronize)
 
 [Playlists](https://github.com/Wifsimster/pavie#playlists)
