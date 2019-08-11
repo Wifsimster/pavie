@@ -23,7 +23,9 @@
     "movie",
     "restfull",
     "node.js",
-    "tv shows"
+    "tv shows",
+    "episode",
+    "pms"
   ],
   "homepage": "https://github.com/Wifsimster/pavie#readme",
   "dependencies": {

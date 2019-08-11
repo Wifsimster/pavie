@@ -333,4 +333,16 @@ module.exports = class {
       return response.data
     }
   }
+
+  /**
+   * Get history
+   */
+  async getHistory(filters = {}) {
+    filters = Object.assign({ sort: "viewedAt:desc" }, filters)
+    const response = await this.instance.get(`/status/sessions/history/all?${querystring.stringify(filters)}`)
+
+    if (response.status < 400) {
+      return response.data.MediaContainer
+    }
+  }
 }

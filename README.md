@@ -133,29 +133,29 @@ Synchronize Plex and Trakt.tv.
 
 #### getHubs([action = 'continueWatching'])
 
-Hubs actions [continueWatching, onDeck]
+Hubs actions [continueWatching, onDeck].
 
 ### Playlists
 
 #### getPlaylists()
 
-Get all playlists
+Get all playlists.
 
 #### getPlaylist([ratingKey])
 
-Get playlist basic info
+Get playlist basic info.
 
 - `ratingKey` `<string> | <number>` Identifiant
 
 #### getPlaylistFiles([ratingKey])
 
-Get playlist video files
+Get playlist video files.
 
 - `ratingKey` `<string> | <number>` Identifiant
 
 #### addPlaylist([data])
 
-Add new playlist
+Add new playlist.
 
 - `data` `<object>`
   - `uri` `<string>` Path to a list of video files, ie : `server://2c59cf8256eccd8629081638e98e27bf8349c3e7/com.plexapp.plugins.library/library/metadata/26082`
@@ -165,7 +165,7 @@ Add new playlist
 
 #### updatePlaylist([ratingKey], [data])
 
-Update existing playlist
+Update existing playlist.
 
 - `ratingKey` `<string> | <number>` Identifiant
 - `data` `<object>`
@@ -174,13 +174,23 @@ Update existing playlist
 
 #### updatePlaylistFiles([ratingKey], [uri])
 
-Add files to an existing playlist
+Add files to an existing playlist.
 
 - `ratingKey` `<string> | <number>` Identifiant
 - `uri` `<string>` Path to a list of video files, ie: `server://2c59cf8256eccd8629081638e98e27bf8349c3e7/com.plexapp.plugins.library/library/metadata/26082`
 
 #### removePlaylist([ratingKey])
 
-Remove existing playlist
+Remove existing playlist.
 
 - `ratingKey` `<string> | <number>` Identifiant
+
+### History
+
+#### getHistory(options)
+
+Get the history of a TV Shows.
+
+- `options` `<object>`
+  - `metadataItemID` `<number>` Identifiant
+  - `sort` `<string>` Order by, default : `viewed:desc`
