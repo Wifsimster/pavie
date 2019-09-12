@@ -14,7 +14,7 @@ module.exports = class {
       return this.user.authToken
     }
     console.warn(`You are not yet signin !`)
-    return null
+    return new Error(response)
   }
 
   /**
@@ -68,6 +68,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -89,6 +91,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -97,10 +101,14 @@ module.exports = class {
    * Return: [machineIdentifier, version]
    */
   async getIdentity() {
-    const response = await this.instance.get(`/identity`)
+    const response = await this.instance.get(`/identity`).catch(err => {
+      return new Error(err)
+    })
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -114,6 +122,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -121,10 +131,14 @@ module.exports = class {
    * Refresh a section
    */
   async refresh(library = "sections", sectionId = 2) {
-    const response = await this.instance.get(`/library/${library}/${sectionId}/refresh`)
+    const response = await this.instance.get(
+      `/library/${library}/${sectionId}/refresh`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -133,10 +147,14 @@ module.exports = class {
    * Return: [name, host, address, port, machineIdentifier, version]
    */
   async getServers() {
-    const response = await this.instance.get("/servers")
+    const response = await this.instance.get("/servers").catch(err => {
+      return new Error(err)
+    })
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -144,10 +162,14 @@ module.exports = class {
    * Get synchronize info
    */
   async getSynchronize() {
-    const response = await this.instance.get("/video/trakt/sync")
+    const response = await this.instance.get("/video/trakt/sync").catch(err => {
+      return new Error(err)
+    })
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -155,10 +177,14 @@ module.exports = class {
    * Synchronize Plex and Trakt.tv
    */
   async synchronize(accoundId = "1&amp;t=1565171925.59") {
-    const response = await this.instance.get(`/video/trakt/sync/synchronize?account_id=${accoundId}`)
+    const response = await this.instance.get(
+      `/video/trakt/sync/synchronize?account_id=${accoundId}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -166,10 +192,14 @@ module.exports = class {
    * Get all playlists
    */
   async getPlaylists() {
-    const response = await this.instance.get(`/playlists`)
+    const response = await this.instance.get(`/playlists`).catch(err => {
+      return new Error(err)
+    })
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -181,6 +211,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -192,6 +224,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -206,10 +240,14 @@ module.exports = class {
       },
       data
     )
-    const response = await this.instance.post(`/playlists?${querystring.stringify(data)}`)
+    const response = await this.instance.post(
+      `/playlists?${querystring.stringify(data)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -217,10 +255,14 @@ module.exports = class {
    * Update playlist
    */
   async updatePlaylist(ratingKey, data) {
-    const response = await this.instance.put(`/playlists/${ratingKey}?${querystring.stringify(data)}`)
+    const response = await this.instance.put(
+      `/playlists/${ratingKey}?${querystring.stringify(data)}`
+    )
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -228,10 +270,14 @@ module.exports = class {
    * Update playlist files
    */
   async updatePlaylistFiles(ratingKey, uri) {
-    const response = await this.instance.put(`/playlists/${ratingKey}/items?uri=${uri}`)
+    const response = await this.instance.put(
+      `/playlists/${ratingKey}/items?uri=${uri}`
+    )
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -243,6 +289,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -251,10 +299,14 @@ module.exports = class {
    */
   async getHistory(filters = {}) {
     filters = Object.assign({ sort: "viewedAt:desc" }, filters)
-    const response = await this.instance.get(`/status/sessions/history/all?${querystring.stringify(filters)}`)
+    const response = await this.instance.get(
+      `/status/sessions/history/all?${querystring.stringify(filters)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -262,10 +314,14 @@ module.exports = class {
    * Get metadata of a media
    */
   async getMedatadata(id) {
-    const response = await this.instance.get(`/library/metadata/${id}?includePreferences=1`)
+    const response = await this.instance.get(
+      `/library/metadata/${id}?includePreferences=1`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -275,19 +331,34 @@ module.exports = class {
    */
   async getMedatadataChildren(id, options = {}) {
     options = Object.assign({ excludeAllLeaves: 1 }, options)
-    const response = await this.instance.get(`/library/metadata/${id}/children?${querystring.stringify(options)}`)
+    const response = await this.instance.get(
+      `/library/metadata/${id}/children?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
   async getRelated(id, options = {}) {
-    options = Object.assign({ excludeFields: "summary", includeExternalMetadata: 1, asyncAugmentMetadata: 1 }, options)
-    const response = await this.instance.get(`/hubs/metadata/${id}/related?${querystring.stringify(options)}`)
+    options = Object.assign(
+      {
+        excludeFields: "summary",
+        includeExternalMetadata: 1,
+        asyncAugmentMetadata: 1
+      },
+      options
+    )
+    const response = await this.instance.get(
+      `/hubs/metadata/${id}/related?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -296,6 +367,8 @@ module.exports = class {
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
@@ -315,10 +388,14 @@ module.exports = class {
       options
     )
 
-    const response = await this.instance.get(`/photo/:/transcode?${querystring.stringify(options)}`)
+    const response = await this.instance.get(
+      `/photo/:/transcode?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data
+    } else {
+      return new Error(response)
     }
   }
 
@@ -326,38 +403,66 @@ module.exports = class {
    * Global search
    */
   async search(query, options = {}) {
-    options = Object.assign({ includeCollections: 1, sectionId: null, limit: null, query: query }, options)
-    const response = await this.instance.get(`/hubs/search?${querystring.stringify(options)}`)
+    options = Object.assign(
+      { includeCollections: 1, sectionId: null, limit: null, query: query },
+      options
+    )
+    const response = await this.instance.get(
+      `/hubs/search?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
   async getTvShows(options = {}) {
-    options = Object.assign({ type: 2, unwatchedLeaves: 0, sort: null }, options)
-    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+    options = Object.assign(
+      { type: 2, unwatchedLeaves: 0, sort: null },
+      options
+    )
+    const response = await this.instance.get(
+      `/library/sections/2/all?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
   async getSeasons(options = {}) {
-    options = Object.assign({ type: 3, includeCollections: 1, sort: null }, options)
-    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+    options = Object.assign(
+      { type: 3, includeCollections: 1, sort: null },
+      options
+    )
+    const response = await this.instance.get(
+      `/library/sections/2/all?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 
   async getEpisodes(options = {}) {
-    options = Object.assign({ type: 4, includeCollections: 1, sort: null }, options)
-    const response = await this.instance.get(`/library/sections/2/all?${querystring.stringify(options)}`)
+    options = Object.assign(
+      { type: 4, includeCollections: 1, sort: null },
+      options
+    )
+    const response = await this.instance.get(
+      `/library/sections/2/all?${querystring.stringify(options)}`
+    )
 
     if (response.status < 400) {
       return response.data.MediaContainer
+    } else {
+      return new Error(response)
     }
   }
 }
