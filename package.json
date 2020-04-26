@@ -30,6 +30,6 @@
   "homepage": "https://github.com/Wifsimster/pavie#readme",
   "dependencies": {
     "axios": "^0.19.2",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.3"
   }
 }

@@ -4,12 +4,18 @@ const Pavie = require("../pavie")
 
 const pavie = new Pavie(settings)
 
-pavie
-  .signin()
-  .then(async () => {
-    const response = await pavie.getHistory()
+main()
+
+async function main() {
+  await pavie
+    .signin()
+    .catch(err => { console.error(err) })
+    
+  const response = await pavie
+    .getHistory()
+    .catch(err => { console.error(err) })
+
+  if(response) {
     console.log(response)
-  })
-  .catch(err => {
-    console.error(err)
-  })
+  }  
+}
