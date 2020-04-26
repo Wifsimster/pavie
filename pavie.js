@@ -22,15 +22,15 @@ module.exports = class {
    * This medoth must be called first !
    */
   async signin() {
-    const response = await axios.post(
-      `https://plex.tv/api/v2/users/signin`,
-      { login: this.username, password: this.password },
-      {
-        headers: {
-          "X-Plex-Client-Identifier": this.clientId
-        }
-      }
-    )
+    const response = await axios
+      .post(`https://plex.tv/api/v2/users/signin`,
+        { login: this.username, password: this.password },
+        {
+          headers: {
+            "X-Plex-Client-Identifier": this.clientId
+          }
+        })
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       this.user = response.data
@@ -60,11 +60,12 @@ module.exports = class {
    */
   async getResources() {
     const response = await axios.get(`https://plex.tv/api/v2/resources`, {
-      headers: {
-        "X-Plex-Client-Identifier": this.clientId,
-        "X-Plex-Token": this.getToken()
-      }
-    })
+        headers: {
+          "X-Plex-Client-Identifier": this.clientId,
+          "X-Plex-Token": this.getToken()
+        }
+      })
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data
@@ -79,15 +80,15 @@ module.exports = class {
    *  Return: [id, uuid, username, title, email, thumb, authToken, certificateVersion, rememberExpiresAt]
    */
   async getUser() {
-    const response = await axios.get(
-      `https://plex.tv/api/v2/user?includeSubscriptions=1&includeSettings=1&includeSharedSettings=1`,
-      {
-        headers: {
-          "X-Plex-Client-Identifier": this.clientId,
-          "X-Plex-Token": this.getToken()
-        }
-      }
-    )
+    const response = await axios
+      .get(`https://plex.tv/api/v2/user?includeSubscriptions=1&includeSettings=1&includeSharedSettings=1`,
+        {
+          headers: {
+            "X-Plex-Client-Identifier": this.clientId,
+            "X-Plex-Token": this.getToken()
+          }
+        })
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data
@@ -101,9 +102,9 @@ module.exports = class {
    * Return: [machineIdentifier, version]
    */
   async getIdentity() {
-    const response = await this.instance.get(`/identity`).catch(err => {
-      return new Error(err)
-    })
+    const response = await this.instance
+      .get(`/identity`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -118,7 +119,9 @@ module.exports = class {
    *  Return : [activities, butler, channels, clients, devices, diagnostics, hubs, library, livetv, media, player, playlists, resources, search, server, ...]
    */
   async getActions() {
-    const response = await this.instance.get(`/`)
+    const response = await this.instance
+      .get(`/`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -131,9 +134,9 @@ module.exports = class {
    * Refresh a section
    */
   async refresh(library = "sections", sectionId = 2) {
-    const response = await this.instance.get(
-      `/library/${library}/${sectionId}/refresh`
-    )
+    const response = await this.instance
+      .get(`/library/${library}/${sectionId}/refresh`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -147,9 +150,9 @@ module.exports = class {
    * Return: [name, host, address, port, machineIdentifier, version]
    */
   async getServers() {
-    const response = await this.instance.get("/servers").catch(err => {
-      return new Error(err)
-    })
+    const response = await this.instance
+      .get("/servers")
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -162,9 +165,9 @@ module.exports = class {
    * Get synchronize info
    */
   async getSynchronize() {
-    const response = await this.instance.get("/video/trakt/sync").catch(err => {
-      return new Error(err)
-    })
+    const response = await this.instance
+      .get("/video/trakt/sync")
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -177,9 +180,9 @@ module.exports = class {
    * Synchronize Plex and Trakt.tv
    */
   async synchronize(accoundId = "1&amp;t=1565171925.59") {
-    const response = await this.instance.get(
-      `/video/trakt/sync/synchronize?account_id=${accoundId}`
-    )
+    const response = await this.instance
+      .get(`/video/trakt/sync/synchronize?account_id=${accoundId}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -192,9 +195,9 @@ module.exports = class {
    * Get all playlists
    */
   async getPlaylists() {
-    const response = await this.instance.get(`/playlists`).catch(err => {
-      return new Error(err)
-    })
+    const response = await this.instance
+      .get(`/playlists`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -207,7 +210,9 @@ module.exports = class {
    * Get playlist basic info
    */
   async getPlaylist(ratingKey) {
-    const response = await this.instance.get(`/playlists/${ratingKey}`)
+    const response = await this.instance
+      .get(`/playlists/${ratingKey}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -220,7 +225,9 @@ module.exports = class {
    * Get playlist video files
    */
   async getPlaylistFiles(ratingKey) {
-    const response = await this.instance.get(`/playlists/${ratingKey}/items`)
+    const response = await this.instance
+      .get(`/playlists/${ratingKey}/items`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -233,16 +240,11 @@ module.exports = class {
    * Add playlist
    */
   async addPlaylist(data) {
-    data = Object.assign(
-      {
-        smart: 0,
-        type: "video"
-      },
-      data
-    )
-    const response = await this.instance.post(
-      `/playlists?${querystring.stringify(data)}`
-    )
+    data = Object.assign({ smart: 0, type: "video" }, data)
+
+    const response = await this.instance
+      .post(`/playlists?${querystring.stringify(data)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -255,9 +257,9 @@ module.exports = class {
    * Update playlist
    */
   async updatePlaylist(ratingKey, data) {
-    const response = await this.instance.put(
-      `/playlists/${ratingKey}?${querystring.stringify(data)}`
-    )
+    const response = await this.instance
+      .put(`/playlists/${ratingKey}?${querystring.stringify(data)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data
@@ -270,9 +272,9 @@ module.exports = class {
    * Update playlist files
    */
   async updatePlaylistFiles(ratingKey, uri) {
-    const response = await this.instance.put(
-      `/playlists/${ratingKey}/items?uri=${uri}`
-    )
+    const response = await this.instance
+      .put(`/playlists/${ratingKey}/items?uri=${uri}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data
@@ -285,8 +287,10 @@ module.exports = class {
    * Remove playlist
    */
   async removePlaylist(ratingKey) {
-    const response = await this.instance.delete(`/playlists/${ratingKey}`)
-
+    const response = await this.instance
+      .delete(`/playlists/${ratingKey}`)
+      .catch(err => { return new Error(err) })
+      
     if (response.status < 400) {
       return response.data
     } else {
@@ -299,9 +303,10 @@ module.exports = class {
    */
   async getHistory(filters = {}) {
     filters = Object.assign({ sort: "viewedAt:desc" }, filters)
-    const response = await this.instance.get(
-      `/status/sessions/history/all?${querystring.stringify(filters)}`
-    )
+    
+    const response = await this.instance
+      .get(`/status/sessions/history/all?${querystring.stringify(filters)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -314,9 +319,9 @@ module.exports = class {
    * Get metadata of a media
    */
   async getMedatadata(id) {
-    const response = await this.instance.get(
-      `/library/metadata/${id}?includePreferences=1`
-    )
+    const response = await this.instance
+      .get(`/library/metadata/${id}?includePreferences=1`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -331,9 +336,10 @@ module.exports = class {
    */
   async getMedatadataChildren(id, options = {}) {
     options = Object.assign({ excludeAllLeaves: 1 }, options)
-    const response = await this.instance.get(
-      `/library/metadata/${id}/children?${querystring.stringify(options)}`
-    )
+    
+    const response = await this.instance
+      .get(`/library/metadata/${id}/children?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -351,9 +357,10 @@ module.exports = class {
       },
       options
     )
-    const response = await this.instance.get(
-      `/hubs/metadata/${id}/related?${querystring.stringify(options)}`
-    )
+
+    const response = await this.instance
+      .get(`/hubs/metadata/${id}/related?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -363,7 +370,9 @@ module.exports = class {
   }
 
   async getSimilar(id) {
-    const response = await this.instance.get(`/hubs/metadata/${id}/similar`)
+    const response = await this.instance
+      .get(`/hubs/metadata/${id}/similar`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -388,9 +397,9 @@ module.exports = class {
       options
     )
 
-    const response = await this.instance.get(
-      `/photo/:/transcode?${querystring.stringify(options)}`
-    )
+    const response = await this.instance
+      .get(`/photo/:/transcode?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data
@@ -403,13 +412,11 @@ module.exports = class {
    * Global search
    */
   async search(query, options = {}) {
-    options = Object.assign(
-      { includeCollections: 1, sectionId: null, limit: null, query: query },
-      options
-    )
-    const response = await this.instance.get(
-      `/hubs/search?${querystring.stringify(options)}`
-    )
+    options = Object.assign({ includeCollections: 1, sectionId: null, limit: null, query: query }, options)
+    
+    const response = await this.instance
+      .get(`/hubs/search?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -419,13 +426,11 @@ module.exports = class {
   }
 
   async getTvShows(options = {}) {
-    options = Object.assign(
-      { type: 2, unwatchedLeaves: 0, sort: null },
-      options
-    )
-    const response = await this.instance.get(
-      `/library/sections/2/all?${querystring.stringify(options)}`
-    )
+    options = Object.assign({ type: 2, unwatchedLeaves: 0, sort: null }, options)
+    
+    const response = await this.instance
+      .get(`/library/sections/2/all?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -435,13 +440,11 @@ module.exports = class {
   }
 
   async getSeasons(options = {}) {
-    options = Object.assign(
-      { type: 3, includeCollections: 1, sort: null },
-      options
-    )
-    const response = await this.instance.get(
-      `/library/sections/2/all?${querystring.stringify(options)}`
-    )
+    options = Object.assign({ type: 3, includeCollections: 1, sort: null }, options)
+
+    const response = await this.instance
+      .get(`/library/sections/2/all?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
@@ -451,13 +454,11 @@ module.exports = class {
   }
 
   async getEpisodes(options = {}) {
-    options = Object.assign(
-      { type: 4, includeCollections: 1, sort: null },
-      options
-    )
-    const response = await this.instance.get(
-      `/library/sections/2/all?${querystring.stringify(options)}`
-    )
+    options = Object.assign({ type: 4, includeCollections: 1, sort: null }, options)
+
+    const response = await this.instance
+      .get(`/library/sections/2/all?${querystring.stringify(options)}`)
+      .catch(err => { return new Error(err) })
 
     if (response.status < 400) {
       return response.data.MediaContainer
