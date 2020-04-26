@@ -1,6 +1,7 @@
 const uuid = require("uuid")
 const axios = require("axios")
 const querystring = require("querystring")
+const errorHandler = require("./errorHandler")
 
 module.exports = class {
   constructor(settings) {
@@ -30,7 +31,7 @@ module.exports = class {
             "X-Plex-Client-Identifier": this.clientId
           }
         })
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
     if (response.status < 400) {
       this.user = response.data
@@ -65,13 +66,9 @@ module.exports = class {
           "X-Plex-Token": this.getToken()
         }
       })
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -88,13 +85,9 @@ module.exports = class {
             "X-Plex-Token": this.getToken()
           }
         })
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -104,13 +97,9 @@ module.exports = class {
   async getIdentity() {
     const response = await this.instance
       .get(`/identity`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -121,13 +110,9 @@ module.exports = class {
   async getActions() {
     const response = await this.instance
       .get(`/`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -136,13 +121,9 @@ module.exports = class {
   async refresh(library = "sections", sectionId = 2) {
     const response = await this.instance
       .get(`/library/${library}/${sectionId}/refresh`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -152,13 +133,9 @@ module.exports = class {
   async getServers() {
     const response = await this.instance
       .get("/servers")
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -167,13 +144,9 @@ module.exports = class {
   async getSynchronize() {
     const response = await this.instance
       .get("/video/trakt/sync")
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -182,13 +155,9 @@ module.exports = class {
   async synchronize(accoundId = "1&amp;t=1565171925.59") {
     const response = await this.instance
       .get(`/video/trakt/sync/synchronize?account_id=${accoundId}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -197,13 +166,9 @@ module.exports = class {
   async getPlaylists() {
     const response = await this.instance
       .get(`/playlists`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -212,13 +177,9 @@ module.exports = class {
   async getPlaylist(ratingKey) {
     const response = await this.instance
       .get(`/playlists/${ratingKey}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -227,13 +188,9 @@ module.exports = class {
   async getPlaylistFiles(ratingKey) {
     const response = await this.instance
       .get(`/playlists/${ratingKey}/items`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -244,13 +201,9 @@ module.exports = class {
 
     const response = await this.instance
       .post(`/playlists?${querystring.stringify(data)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -259,13 +212,9 @@ module.exports = class {
   async updatePlaylist(ratingKey, data) {
     const response = await this.instance
       .put(`/playlists/${ratingKey}?${querystring.stringify(data)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -274,13 +223,9 @@ module.exports = class {
   async updatePlaylistFiles(ratingKey, uri) {
     const response = await this.instance
       .put(`/playlists/${ratingKey}/items?uri=${uri}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -289,13 +234,9 @@ module.exports = class {
   async removePlaylist(ratingKey) {
     const response = await this.instance
       .delete(`/playlists/${ratingKey}`)
-      .catch(err => { return new Error(err) })
-      
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+      .catch(err => new Error(err))
+
+    return errorHandler(response)
   }
 
   /**
@@ -303,16 +244,12 @@ module.exports = class {
    */
   async getHistory(filters = {}) {
     filters = Object.assign({ sort: "viewedAt:desc" }, filters)
-    
+
     const response = await this.instance
       .get(`/status/sessions/history/all?${querystring.stringify(filters)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -321,13 +258,9 @@ module.exports = class {
   async getMedatadata(id) {
     const response = await this.instance
       .get(`/library/metadata/${id}?includePreferences=1`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -336,16 +269,12 @@ module.exports = class {
    */
   async getMedatadataChildren(id, options = {}) {
     options = Object.assign({ excludeAllLeaves: 1 }, options)
-    
+
     const response = await this.instance
       .get(`/library/metadata/${id}/children?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   async getRelated(id, options = {}) {
@@ -360,25 +289,17 @@ module.exports = class {
 
     const response = await this.instance
       .get(`/hubs/metadata/${id}/related?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   async getSimilar(id) {
     const response = await this.instance
       .get(`/hubs/metadata/${id}/similar`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -399,13 +320,9 @@ module.exports = class {
 
     const response = await this.instance
       .get(`/photo/:/transcode?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   /**
@@ -413,30 +330,22 @@ module.exports = class {
    */
   async search(query, options = {}) {
     options = Object.assign({ includeCollections: 1, sectionId: null, limit: null, query: query }, options)
-    
+
     const response = await this.instance
       .get(`/hubs/search?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   async getTvShows(options = {}) {
     options = Object.assign({ type: 2, unwatchedLeaves: 0, sort: null }, options)
-    
+
     const response = await this.instance
       .get(`/library/sections/2/all?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   async getSeasons(options = {}) {
@@ -444,13 +353,9 @@ module.exports = class {
 
     const response = await this.instance
       .get(`/library/sections/2/all?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 
   async getEpisodes(options = {}) {
@@ -458,12 +363,8 @@ module.exports = class {
 
     const response = await this.instance
       .get(`/library/sections/2/all?${querystring.stringify(options)}`)
-      .catch(err => { return new Error(err) })
+      .catch(err => new Error(err))
 
-    if (response.status < 400) {
-      return response.data.MediaContainer
-    } else {
-      return new Error(response)
-    }
+    return errorHandler(response)
   }
 }

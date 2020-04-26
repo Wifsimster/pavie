@@ -10,7 +10,7 @@ async function main() {
   await pavie
     .signin()
     .catch(err => { console.error(err) })
-    
+
   const response = await pavie
     .getActions()
     .catch(err => { console.error(err) })
